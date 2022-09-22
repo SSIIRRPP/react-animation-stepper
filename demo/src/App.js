@@ -32,21 +32,18 @@ function App() {
       {
         config: {
           first: {
-            id: "first",
             style: {
               animation: "fade-in-down-anim",
             },
             keepConfig: true,
           },
           second: {
-            id: "second",
             style: {
               animation: "fade-out-up-anim",
             },
             keepConfig: true,
           },
           third: {
-            id: "third",
             style: {
               animation: "fade-in-down-anim",
             },
