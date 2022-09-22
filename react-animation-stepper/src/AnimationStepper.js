@@ -46,10 +46,12 @@ export const defaultStyle = {
 };
 
 const checkMultipleConfigPerStep = (config) =>
-  !config?.classes &&
-  !config?.styles &&
-  !config?.keepConfig &&
-  !config?.removePrevAnimations;
+  typeof config === "object" &&
+  !config.classes &&
+  !config.styles &&
+  !config.keepConfig &&
+  !config.removePrevAnimations &&
+  Object.keys(config).length > 0;
 
 class AnimationStepper extends Component {
   constructor(props) {
