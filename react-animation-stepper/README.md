@@ -1,4 +1,4 @@
-## [DEMO](https://codepen.io/jSirp8/pen/YzLxZeZ)
+### See a demo [here](https://codepen.io/jSirp8/pen/YzLxZeZ)
 
 #
 
@@ -24,8 +24,6 @@ import AnimationStepper from "react-animation-stepper";
 
 #
 
-#
-
 ```jsx
 // Structure:
 
@@ -40,7 +38,7 @@ const components = useMemo(
 );
 ```
 
-##### This object's keys will act as an identifier for the component, to be referenced later at the animations definition.
+##### This object's keys will act as an identifier for the component, to be referenced later at the steps definition.
 
 #
 
@@ -58,7 +56,7 @@ const steps = useMemo(
       config: {
         style: {
           animationName: "some-animation-defined-in-css-file",
-          // extra styles property to apply to your conmponent
+          // extra style properties to apply to your component
           opacity: 0,
         },
         classes: ["some-css-class-defined-in-css-file"],
@@ -177,11 +175,7 @@ elements: ["first", "second"]
 }
 ```
 
-#
-
 ## <a id="animation-stepper-props">AnimationStepper's Props</a>:
-
-#
 
 | Props                   | Type  | Required | Description                                                                                                                                                    | Default     |
 | ----------------------- | ----- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
@@ -202,11 +196,7 @@ elements: ["first", "second"]
 | preDelay  | Integer       | ✖️       | Delay expressed in miliseconds, applied before the step is reproduced.                            | `undefined ` |
 | postDelay | Integer       | ✖️       | Delay expressed in miliseconds, applied after the step is reproduced.                             | `undefined ` |
 
-#
-
 ## <a id="steps-config">Step config's props</a>:
-
-#
 
 | Props                | Type                      | Required | Description                                                                                                                                                                                                                           | Default     |
 | -------------------- | ------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
