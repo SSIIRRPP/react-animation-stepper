@@ -1,0 +1,59 @@
+.fade-in-up {
+  animation: fade-in-up-anim;
+}
+
+.fade-out-up {
+  animation: fade-out-up-anim;
+}
+
+.fade-in-down {
+  animation: fade-in-down-anim;
+}
+
+.fade-out-down {
+  animation: fade-out-down-anim;
+}
+
+@keyframes fade-in-up-anim {
+  0% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out-up-anim {
+  0% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in-down-anim {
+  0% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out-down-anim {
+  0% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+}
