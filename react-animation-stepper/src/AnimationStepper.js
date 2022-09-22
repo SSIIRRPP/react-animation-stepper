@@ -39,6 +39,18 @@ import wait from "./wait";
 // manualSteps (bool): determines if animations should be reproduced automatically
 //    if false, a stepperRef should be provided to acces the nextStep's method from component's father
 
+export const defaultDuration = 1000;
+export const defaultStyle = {
+  animationIterationCount: 1,
+  animationFillMode: "forwards",
+};
+
+const checkMultipleConfigPerStep = (config) =>
+  !config?.classes &&
+  !config?.styles &&
+  !config?.keepConfig &&
+  !config?.removePrevAnimations;
+
 class AnimationStepper extends Component {
   constructor(props) {
     super(props);
@@ -146,7 +158,8 @@ class AnimationStepper extends Component {
       // creates a promise for every single element that transitions,
       elements.map((id) => {
         let _config = config;
-        if (Array.isArray(config)) {
+        // checks if the configuration is multiple or not
+        if (checkMultipleConfigPerStep(config)) {
           _config = config[id];
         }
         // sends the animation to each element

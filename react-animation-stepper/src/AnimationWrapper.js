@@ -1,19 +1,13 @@
 import { Component, cloneElement, createRef } from "react";
+import { defaultDuration, defaultStyle } from "./AnimationStepper";
 import { EXECUTING, FINISHED, INIT } from "./status";
 import wait from "./wait";
 
-const defaultStyle = {
-  animationIterationCount: 1,
-  animationFillMode: "forwards",
-};
-
-const defaultDuration = 1000;
-
-const makeStyles = (ms = defaultDuration, style) => {
+const makeStyles = (ms = defaultDuration, style = {}) => {
   let newStyle = {
     ...defaultStyle,
   };
-  if (style.animation) {
+  if (style?.animation) {
     // prevents user from overriding all animation config
     // each config property is individually modifyable except animationDuration
     style.animationName = style.animation;
