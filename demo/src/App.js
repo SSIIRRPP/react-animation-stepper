@@ -1,6 +1,6 @@
-import React from "react";
 import "./test/testAnimations.scss";
-import { useMemo, useRef, useState } from "react";
+import "./App.css";
+import React, { useMemo, useRef, useState } from "react";
 import AnimationStepper from "react-animation-stepper";
 import TestComp1 from "./test/TestComp1";
 import TestComp2 from "./test/TestComp2";
@@ -12,7 +12,7 @@ const makeMockDate = () => {
 };
 
 function App() {
-  const stepperRef = useRef();
+  const stepperRef = useRef({});
   const [automatic, setAutomatic] = useState(false);
   const [mockState, setMockState] = useState(makeMockDate());
   const [mockState2, setMockState2] = useState(makeMockDate());
@@ -30,29 +30,30 @@ function App() {
         duration: 2000,
       },
       {
-        config: [
-          {
+        config: {
+          first: {
             id: "first",
             style: {
               animation: "fade-in-down-anim",
             },
             keepConfig: true,
           },
-          {
+          second: {
             id: "second",
             style: {
               animation: "fade-out-up-anim",
             },
             keepConfig: true,
           },
-          {
+          third: {
             id: "third",
             style: {
               animation: "fade-in-down-anim",
             },
             keepConfig: true,
           },
-        ],
+        },
+
         elements: ["first", "second", "third"],
         duration: 2000,
       },
@@ -131,7 +132,7 @@ function App() {
               alignItems: "center",
             }}
           >
-            <button onClick={() => stepperRef.current()}>
+            <button onClick={() => stepperRef.current.nextStep()}>
               AnimationStepper's nextStep method
             </button>
           </div>

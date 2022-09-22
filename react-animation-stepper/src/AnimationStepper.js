@@ -2,7 +2,6 @@ import deepEqual from "deep-equal";
 import { Component, createElement } from "react";
 import AnimationWrapper from "./AnimationWrapper";
 import wait from "./wait";
-/* const deepEqual = require("deep-equal"); */
 
 // PROPS:
 
@@ -19,12 +18,15 @@ import wait from "./wait";
 //        classes: [""] || "" : classNames to be applied at animation,
 //        styles: {} : Styles object to be applied at animation step,
 //                     all styles are accepted except "animation" and "animationDuration"
-//        keepConfig: false : determines if applied classes and styles should be removed on animation's completion
-//      } || [...configs]
+//        keepConfig: false : determines if applied classes and styles should be removed on animation's completion,
+//        removePrevAnimations: false: Removes previous classes and styles kept in the previous animation, before applying the new ones.
+//      } || { identifier: config }
+//     preDelay: Delay expressed in miliseconds, applied before the step is reproduced.
+//     postDelay: Delay expressed in miliseconds, applied after the step is reproduced.
 //   }
 
 // components: components object to animate.
-//    key: string to identify the component,
+//    key: string to identify the component (identifier),
 //    value: the rendered component to be animated
 
 // reloadOnStepsPropChange (bool): determines if steps should restart on steps prop change
@@ -32,7 +34,7 @@ import wait from "./wait";
 // update: update prop to restart steps on its change
 
 // stepperRef: ref to use with manualAnimationStep prop
-//    sets nextStep method to this ref to use in father component
+//    sets nextStep method to this ref to use in father's component
 
 // manualSteps (bool): determines if animations should be reproduced automatically
 //    if false, a stepperRef should be provided to acces the nextStep's method from component's father
@@ -45,6 +47,9 @@ class AnimationStepper extends Component {
     this.state = {
       step: null,
     };
+    if (this.props.manualSteps) {
+      this.setNextStepMethodToStepperRef();
+    }
     // children class components are mounted in father's constructor.
     this.children = this.generateChildren(this.props.components);
   }
@@ -84,7 +89,13 @@ class AnimationStepper extends Component {
     // sets nextStep method to stepperRef
     // so it can be executed from a father component
     if (this.props.stepperRef) {
-      this.props.stepperRef.current = this.nextStep.bind(this);
+      if (
+        !this.props.stepperRef.current ||
+        typeof this.props.stepperRef.current !== "object"
+      ) {
+        this.props.stepperRef.current = {};
+      }
+      this.props.stepperRef.current.nextStep = this.nextStep.bind(this);
     } else {
       throw new Error("No stepper ref provided along manualAnimationStep");
     }
@@ -93,9 +104,7 @@ class AnimationStepper extends Component {
   async componentDidMount() {
     this.loadChildrensOwnChildren();
     this.setSteps();
-    if (this.props.manualSteps) {
-      this.setNextStepMethodToStepperRef();
-    } else {
+    if (!this.props.manualSteps) {
       await this.startTransitions();
     }
   }
@@ -138,7 +147,7 @@ class AnimationStepper extends Component {
       elements.map((id) => {
         let _config = config;
         if (Array.isArray(config)) {
-          _config = config.find((c) => c.id === id);
+          _config = config[id];
         }
         // sends the animation to each element
         return this.elements[id].setStep({ step, config: _config }, i);
