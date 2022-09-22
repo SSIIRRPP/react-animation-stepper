@@ -155,7 +155,7 @@ config: {
 
 ##### You can find more information about its properties at [Step config's props](#steps-config) section.
 
-### You can also pass an Object with multiple configurations if you need to define diferent configurations for the components. Use the component's identifier as the key for each config value, like this:
+##### You can also pass an Object with multiple configurations if you need to define diferent configurations for the components. Use the component's identifier as the key for each config value, like this:
 
 #
 
@@ -177,14 +177,14 @@ elements: ["first", "second"]
 
 ## <a id="animation-stepper-props">AnimationStepper's Props</a>:
 
-| Props                   | Type  | Required | Description                                                                                                                                                    | Default     |
-| ----------------------- | ----- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| steps                   | Array | ✔️       | Animations array to execute.                                                                                                                                   | `undefined` |
-| components              | Array | ✔️       | Components object to animate.                                                                                                                                  | `undefined` |
-| reloadOnStepsPropChange | Bool  | ✖️       | Determines if steps should restart on steps prop change.                                                                                                       | `false`     |
-| update                  | Any   | ✖️       | Update prop to restart steps on its change.                                                                                                                    | `undefined` |
-| stepperRef              | Ref   | ✖️       | ref to use with manualAnimationStep prop. Sets nextStep method to this ref to use in father's component.                                                       | `undefined` |
-| manualSteps             | Bool  | ✖️       | determines if animations should be reproduced automatically. If false, a stepperRef should be provided to acces the nextStep's method from component's father. | `false`     |
+| Props                   | Type  | Required | Description                                                                                                                                                                                                                                                                                                 | Default     |
+| ----------------------- | ----- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| steps                   | Array | ✔️       | Animations array to execute.                                                                                                                                                                                                                                                                                | `undefined` |
+| components              | Array | ✔️       | Components object to animate.                                                                                                                                                                                                                                                                               | `undefined` |
+| reloadOnStepsPropChange | Bool  | ✖️       | Determines if steps should restart on steps prop change.                                                                                                                                                                                                                                                    | `false`     |
+| update                  | Any   | ✖️       | Update prop to restart steps on its change.                                                                                                                                                                                                                                                                 | `undefined` |
+| stepperRef              | Ref   | ✖️       | ref to use with manualAnimationStep prop. Sets nextStep method to this ref to use in father's component.                                                                                                                                                                                                    | `undefined` |
+| manualSteps             | Bool  | ✖️       | determines if animations should be reproduced automatically. If false, a stepperRef should be provided to acces the nextStep's method from component's father. This prop's change won't trigger a re-render, so you should avoid changing from one mode to another (unless you force a re-render yourself). | `false`     |
 
 ## <a id="step-props">Step's props</a>:
 
@@ -202,7 +202,7 @@ elements: ["first", "second"]
 | -------------------- | ------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
 | classes              | Array<String> `or` String | ✖️       | classNames to be applied at animation. Can be an string, or an Array of Strings.                                                                                                                                                      | `undefined` |
 | styles               | Object                    | ✖️       | Styles object to be applied at animation step. All styles are accepted except `animation` and `animationDuration`. `animation` will be replaced with `animationName`. `animationDuration` is provided through step's `duration` prop. | `undefined` |
-| keepConfig           | Bool                      | ✖️       | Determines if applied classes and styles should be removed on animation's completion.                                                                                                                                                 | `false`     |
+| keepConfig           | Bool                      | ✖️       | Determines if applied classes and styles should be kept on animation's completion.                                                                                                                                                    | `false`     |
 | removePrevAnimations | Bool                      | ✖️       | Removes previous classes and styles kept in the previous animation, before applying the new ones.                                                                                                                                     | `false`     |
 
 #

@@ -3,7 +3,7 @@ import { defaultDuration, defaultStyle } from "./AnimationStepper";
 import { EXECUTING, FINISHED, INIT } from "./status";
 import wait from "./wait";
 
-const makeStyles = (ms = defaultDuration, style = {}) => {
+const makeStyles = (ms = defaultDuration, style) => {
   let newStyle = {
     ...defaultStyle,
   };
