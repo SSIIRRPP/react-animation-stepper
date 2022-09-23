@@ -81,7 +81,7 @@ class AnimationWrapper extends Component {
         }
         this.addAnimation();
         // waits to animation to be reproduced
-        await wait(step.duration, this.state.i);
+        await wait((step.duration = defaultDuration), this.state.i);
         if (!!!config.keepConfig) {
           // if keepConfig is present and true on animation's config,
           // the animation config wont be removed on animation's completion.
@@ -104,7 +104,7 @@ class AnimationWrapper extends Component {
       this.removeClasses(this.appliedClasses);
     }
     this.addClasses(this.state.config?.classes);
-    this.addStyles(this.state.config?.style);
+    this.addStyles(this.state.config?.styles);
   }
 
   async removeAnimation() {
