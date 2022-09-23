@@ -2,6 +2,7 @@ import "./test/testAnimations.scss";
 import "./App.css";
 import React, { useMemo, useRef, useState } from "react";
 import AnimationStepper from "react-animation-stepper";
+/* import AnimationStepper from "./src/AnimationStepper"; */
 import TestComp1 from "./test/TestComp1";
 import TestComp2 from "./test/TestComp2";
 import TestComp3 from "./test/TestComp3";
@@ -49,6 +50,7 @@ function App() {
               animation: "fade-in-down-anim",
             },
             keepConfig: true,
+            delay: 200,
           },
         },
 

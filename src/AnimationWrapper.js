@@ -1,7 +1,7 @@
 import { Component, cloneElement, createRef } from "react";
 import { defaultDuration, defaultStyle } from "./AnimationStepper";
 import { EXECUTING, FINISHED, INIT } from "./status";
-import wait from "./wait";
+import { wait } from "./util";
 
 const makeStyles = (ms = defaultDuration, style) => {
   let newStyle = {
@@ -68,6 +68,10 @@ class AnimationWrapper extends Component {
   async executeAnimation() {
     const { step, config } = this.state;
     if (step && config) {
+      const { delay } = config;
+      if (delay) {
+        await wait(delay);
+      }
       this.addAnimation();
       // waits to animation to be reproduced
       await wait(step.duration, this.state.i);

@@ -2,7 +2,7 @@ import deepEqual from "deep-equal";
 import { Component, createElement } from "react";
 import PropTypes from "prop-types";
 import AnimationWrapper from "./AnimationWrapper";
-import wait from "./wait";
+import { wait } from "./util";
 
 // PROPS:
 
@@ -21,6 +21,7 @@ import wait from "./wait";
 //                     all styles are accepted except "animation" and "animationDuration"
 //        keepConfig: false : determines if applied classes and styles should be removed on animation's completion,
 //        removePrevAnimations: false: Removes previous classes and styles kept in the previous animation, before applying the new ones.
+//        delay: 0: delay applied before executing the animation. Util with a multiple config, to delay the animation between components that act in the same step.
 //      } || { identifier: config }
 //     preDelay: Delay expressed in miliseconds, applied before the step is reproduced.
 //     postDelay: Delay expressed in miliseconds, applied after the step is reproduced.
@@ -82,6 +83,7 @@ class AnimationStepper extends Component {
     super(props);
     this.elements = {};
     this.steps = [];
+    this.manualExecuting = false;
     this.state = {
       step: null,
     };
@@ -93,7 +95,8 @@ class AnimationStepper extends Component {
   }
 
   setChildToElements = (id) => (childRef) => {
-    // sets children class component in this object when child mount,
+    // returns a callback funtion, which sets children class
+    // component in this object when child mount,
     // so we can access its methods.
     this.elements = {
       ...this.elements,
@@ -174,9 +177,11 @@ class AnimationStepper extends Component {
   async nextStep() {
     // manually executes first transition, and removes it from animations array,
     // so next animation is executed at next call
-    if (this.steps.length > 0) {
+    if (this.steps.length > 0 && !this.manualExecuting) {
+      this.manualExecuting = true;
       await this.steps[0]();
       this.steps = this.steps.slice(1, this.steps.length);
+      this.manualExecuting = false;
     }
   }
 
