@@ -82,7 +82,7 @@ const steps = useMemo(
 );
 ```
 
-##### You should wrap this into a useMemo hook if you want to use [reloadOnStepsPropChange](#animation-stepper-props), otherwise the animation will reset on every re-render.
+##### You should wrap this into a useMemo hook if you want to use [reloadOnStepsPropChange](#user-content-animation-stepper-props), otherwise the animation will reset on every re-render.
 
 #
 
@@ -153,7 +153,7 @@ config: {
 }
 ```
 
-##### You can find more information about its properties at [Step config's props](#steps-config) section.
+##### You can find more information about its properties at [Step config's props](#user-content-steps-config-props) section.
 
 ##### <div id="multi-config"> You can also pass an Object with multiple configurations if you need to define diferent configurations for the components. Use the component's identifier as the key for each config value, like this</div>:
 
@@ -175,7 +175,7 @@ elements: ["first", "second"]
 }
 ```
 
-## <div id="animation-stepper-props">AnimationStepper's Props</div>:
+## <div id="animation-stepper-props">AnimationStepper's Props:</div>
 
 | Props                   | Type  | Required | Description                                                                                                                                                                                                                                                                                                 | Default     |
 | ----------------------- | ----- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
@@ -188,23 +188,23 @@ elements: ["first", "second"]
 | automaticPlay           | Bool  | ✖️       | Determines if the animation should start on automatic mode                                                                                                                                                                                                                                                  | `true`      |
 | onEnd                   | Func  | ✖️       | Callback to be executed on automatic steps play completion                                                                                                                                                                                                                                                  | `undefined` |
 
-## <div id="step-props">Step's props</div>:
+## <div id="step-props">Step's props:</div>
 
-| Props     | Type          | Required | Description                                                                                       | Default      |
-| --------- | ------------- | -------- | ------------------------------------------------------------------------------------------------- | ------------ |
-| elements  | Array<String> | ✔️       | Array specifying which elements do act in the step.                                               | `undefined`  |
-| config    | Object        | ✔️       | Configuration to be applied to the animated components. See [Step config's props](#steps-config). | `undefined`  |
-| duration  | Integer       | ✖️       | Duration of the step in miliseconds.                                                              | **1000**     |
-| preDelay  | Integer       | ✖️       | Delay expressed in miliseconds, applied before the step is reproduced.                            | `undefined ` |
-| postDelay | Integer       | ✖️       | Delay expressed in miliseconds, applied after the step is reproduced.                             | `undefined ` |
+| Props     | Type          | Required | Description                                                                                                          | Default      |
+| --------- | ------------- | -------- | -------------------------------------------------------------------------------------------------------------------- | ------------ |
+| elements  | Array<String> | ✔️       | Array specifying which elements do act in the step.                                                                  | `undefined`  |
+| config    | Object        | ✔️       | Configuration to be applied to the animated components. See [Step config's props](#user-content-steps-config-props). | `undefined`  |
+| duration  | Integer       | ✖️       | Duration of the step in miliseconds.                                                                                 | **1000**     |
+| preDelay  | Integer       | ✖️       | Delay expressed in miliseconds, applied before the step is reproduced.                                               | `undefined ` |
+| postDelay | Integer       | ✖️       | Delay expressed in miliseconds, applied after the step is reproduced.                                                | `undefined ` |
 
-## <div id="steps-config">Step config's props</div>:
+## <div id="steps-config-props">Step config's props:</div>
 
 | Props                | Type                      | Required | Description                                                                                                                                                                                                                           | Default     |
 | -------------------- | ------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
 | classes              | Array<String> `or` String | ✖️       | classNames to be applied at animation. Can be an string, or an Array of Strings.                                                                                                                                                      | `undefined` |
 | styles               | Object                    | ✖️       | Styles object to be applied at animation step. All styles are accepted except `animation` and `animationDuration`. `animation` will be replaced with `animationName`. `animationDuration` is provided through step's `duration` prop. | `undefined` |
-| delay                | Integer                   | ✖️       | Delay applied before executing the animation. Util with a [multiple config](#multi-config), to delay the animation between components that act in the same step.                                                                      | `undefined` |
+| delay                | Integer                   | ✖️       | Delay applied before executing the animation. Util with a [multiple config](#user-content-multi-config), to delay the animation between components that act in the same step.                                                         | `undefined` |
 | keepConfig           | Bool                      | ✖️       | Determines if applied classes and styles should be kept on animation's completion.                                                                                                                                                    | `false`     |
 | removePrevAnimations | Bool                      | ✖️       | Removes previous classes and styles kept in the previous animation, before applying the new ones.                                                                                                                                     | `false`     |
 

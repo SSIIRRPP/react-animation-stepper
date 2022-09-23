@@ -153,9 +153,9 @@ class AnimationStepper extends Component {
   setSteps() {
     // set animations to an array so animations in component
     // and animations in props are independent.
-    // Animations are stored as a function ready to be executed (this.createStep).
+    // Animations are stored as a function ready to be executed (this.executeStep).
     this.steps = this.props.steps.map(
-      (step, i) => () => this.createStep(step, i)
+      (step, i) => () => this.executeStep(step, i)
     );
   }
 
@@ -185,7 +185,7 @@ class AnimationStepper extends Component {
     }
   }
 
-  async createStep(step, i) {
+  async executeStep(step, i) {
     // promise returned to generate steps.
     // represents a single step.
     const { preDelay, postDelay, config, elements = [] } = step;
@@ -204,12 +204,14 @@ class AnimationStepper extends Component {
         // sends the animation to each element
         return this.elements[id].setStep({ step, config: _config }, i);
       })
-    ).finally(() => {
-      elements.forEach((id) => {
-        // removes animation from each child when resolved
-        this.elements[id]?.removeStep(i);
+    )
+      .catch((e) => console.log(e))
+      .finally(() => {
+        elements.forEach((id) => {
+          // removes animation from each child when resolved
+          this.elements[id]?.removeStep(i);
+        });
       });
-    });
     // awaits step postDelay
     if (postDelay && typeof postDelay === "number") {
       await wait(postDelay, i);
@@ -242,7 +244,10 @@ class AnimationStepper extends Component {
     ) {
       this.restartStepper();
     }
-    if (this.props.automaticPlay !== prevProps.automaticPlay) {
+    if (
+      this.props.automaticPlay !== prevProps.automaticPlay &&
+      this.props.automaticPlay
+    ) {
       this.startTransitions();
     }
   }

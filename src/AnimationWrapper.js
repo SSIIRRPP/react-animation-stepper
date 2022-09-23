@@ -54,6 +54,7 @@ class AnimationWrapper extends Component {
     this.animRef = createRef(null);
     this.setStep = setStep.bind(this);
     this.removeStep = removeStep.bind(this);
+    this.id = this.props.id;
     this.props.setChildToElements(this);
   }
 
@@ -66,21 +67,30 @@ class AnimationWrapper extends Component {
   }
 
   async executeAnimation() {
-    const { step, config } = this.state;
-    if (step && config) {
-      const { delay } = config;
-      if (delay) {
-        await wait(delay);
+    try {
+      if (!(this.animRef.current instanceof Element)) {
+        throw new Error(
+          `The ref for the element "${this.id}" was not set in a valid html element`
+        );
       }
-      this.addAnimation();
-      // waits to animation to be reproduced
-      await wait(step.duration, this.state.i);
-      if (!!!config.keepConfig) {
-        // if keepConfig is present and true on animation's config,
-        // the animation config wont be removed on animation's completion.
-        this.removeAnimation();
+      const { step, config } = this.state;
+      if (step && config) {
+        const { delay } = config;
+        if (delay) {
+          await wait(delay);
+        }
+        this.addAnimation();
+        // waits to animation to be reproduced
+        await wait(step.duration, this.state.i);
+        if (!!!config.keepConfig) {
+          // if keepConfig is present and true on animation's config,
+          // the animation config wont be removed on animation's completion.
+          this.removeAnimation();
+        }
+        this.setState({ status: FINISHED });
       }
-      this.setState({ status: FINISHED });
+    } catch (e) {
+      console.error(e);
     }
   }
 
