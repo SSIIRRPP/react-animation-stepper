@@ -1,12 +1,21 @@
 {
   "name": "react-animation-stepper",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Simple component to declaratively define stepped animations and execute them automatically or manually.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SSIIRRPP/react-animation-stepper"
+  },
+  "keywords": [
+    "react",
+    "animation",
+    "animations",
+    "stepper"
+  ],
   "author": "jsirp",
   "license": "MIT",
   "peerDependencies": {
