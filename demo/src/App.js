@@ -14,6 +14,7 @@ const makeMockDate = () => {
 function App() {
   const stepperRef = useRef({});
   const [automatic, setAutomatic] = useState(false);
+  const [automaticActive, setAutomaticActive] = useState(true);
   const [mockState, setMockState] = useState(makeMockDate());
   const [mockState2, setMockState2] = useState(makeMockDate());
   const [update, setUpdate] = useState(null);
@@ -141,7 +142,11 @@ function App() {
               justifyContent: "space-between",
               alignItems: "center",
             }}
-          ></div>
+          >
+            <button onClick={() => setAutomaticActive((s) => !s)}>
+              set automaticPlay to {`${!automaticActive}`}
+            </button>
+          </div>
         )}
         <div
           style={{
@@ -195,7 +200,9 @@ function App() {
           <AnimationStepper
             steps={steps}
             components={components}
+            automaticPlay={automaticActive}
             update={update}
+            /* onEnd={() => console.log("STEPS ENDED")} */
             reloadOnStepsPropChange
           />
         ) : (

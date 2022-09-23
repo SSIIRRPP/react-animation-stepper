@@ -1,5 +1,6 @@
 import deepEqual from "deep-equal";
 import { Component, createElement } from "react";
+import PropTypes from "prop-types";
 import AnimationWrapper from "./AnimationWrapper";
 import wait from "./wait";
 
@@ -39,6 +40,9 @@ import wait from "./wait";
 // manualSteps (bool): determines if animations should be reproduced automatically
 //    if false, a stepperRef should be provided to acces the nextStep's method from component's father
 
+// automaticPlay (bool): determines if the animation should start on automatic mode
+// onEnd (func): Callback to be executed on automatic steps play completion
+
 export const defaultDuration = 1000;
 export const defaultStyle = {
   animationIterationCount: 1,
@@ -54,6 +58,26 @@ const checkMultipleConfigPerStep = (config) =>
   Object.keys(config).length > 0;
 
 class AnimationStepper extends Component {
+  static propTypes = {
+    steps: PropTypes.arrayOf(PropTypes.object).isRequired,
+    components: PropTypes.objectOf(PropTypes.object).isRequired,
+    reloadOnStepsPropChange: PropTypes.bool,
+    update: PropTypes.any,
+    stepperRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.any }),
+    ]),
+    manualSteps: PropTypes.bool,
+    automaticPlay: PropTypes.bool,
+    onEnd: PropTypes.func,
+  };
+
+  static defaultProps = {
+    reloadOnStepsPropChange: false,
+    manualSteps: false,
+    automaticPlay: true,
+  };
+
   constructor(props) {
     super(props);
     this.elements = {};
@@ -133,9 +157,17 @@ class AnimationStepper extends Component {
   }
 
   async startTransitions() {
-    // automatically executes all steps in order
-    for (let step of this.steps) {
-      await step();
+    // checks if automaticPlay is active
+    /* let play =
+      typeof this.props.automaticPlay === "boolean"
+        ? this.props.automaticPlay
+        : true; */
+    if (this.props.automaticPlay) {
+      // automatically executes all steps in order
+      for (let step of this.steps) {
+        await step();
+      }
+      this.props.onEnd && this.props.onEnd();
     }
   }
 
@@ -204,6 +236,9 @@ class AnimationStepper extends Component {
       !deepEqual(prevProps.update, this.props.update)
     ) {
       this.restartStepper();
+    }
+    if (this.props.automaticPlay !== prevProps.automaticPlay) {
+      this.startTransitions();
     }
   }
 

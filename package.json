@@ -1,6 +1,6 @@
 {
   "name": "react-animation-stepper",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Simple component to declaratively define stepped animations and execute them automatically or manually.",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,8 @@
   "author": "jsirp",
   "license": "MIT",
   "dependencies": {
-    "deep-equal": "^2.0.5"
+    "deep-equal": "^2.0.5",
+    "prop-types": "^15.8.1"
   },
   "peerDependencies": {
     "react": "^17.0.2"
