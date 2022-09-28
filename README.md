@@ -129,11 +129,9 @@ const MyFirstComponent = ({ animationRef }) => {
 ```jsx
 const stepperRef = useRef(null); // define ref to store AnimationStepper's methods
 
-useEffect(() => {
-  // you advance through step manually with
-  // AnimationStepper's nextStep method
-  stepperRef.current.nextStep();
-}, []);
+// you advance through steps manually with
+// AnimationStepper's nextStep method
+stepperRef.current.nextStep();
 
 <AnimationStepper
   steps={steps}
@@ -183,7 +181,7 @@ elements: ["first", "second"]
 | components              | Array | ✔️       | Components object to animate.                                                                                                                                                                                                                                                                               | `undefined` |
 | reloadOnStepsPropChange | Bool  | ✖️       | Determines if steps should restart on steps prop change.                                                                                                                                                                                                                                                    | `false`     |
 | update                  | Any   | ✖️       | Update prop to restart steps on its change.                                                                                                                                                                                                                                                                 | `undefined` |
-| stepperRef              | Ref   | ✖️       | ref to use with manualAnimationStep prop. Sets nextStep method to this ref to use in father's component.                                                                                                                                                                                                    | `undefined` |
+| stepperRef              | Ref   | ✖️       | ref to use along with manualSteps prop. Sets nextStep method to this ref to use in father's component.                                                                                                                                                                                                    | `undefined` |
 | manualSteps             | Bool  | ✖️       | Determines if animations should be reproduced automatically. If false, a stepperRef should be provided to acces the nextStep's method from component's father. This prop's change won't trigger a re-render, so you should avoid changing from one mode to another (unless you force a re-render yourself). | `false`     |
 | automaticPlay           | Bool  | ✖️       | Determines if the animation should start on automatic mode                                                                                                                                                                                                                                                  | `true`      |
 | onEnd                   | Func  | ✖️       | Callback to be executed on automatic steps play completion                                                                                                                                                                                                                                                  | `undefined` |
@@ -208,8 +206,3 @@ elements: ["first", "second"]
 | keepConfig           | Bool                      | ✖️       | Determines if applied classes and styles should be kept on animation's completion.                                                                                                                                                    | `false`     |
 | removePrevAnimations | Bool                      | ✖️       | Removes previous classes and styles kept in the previous animation, before applying the new ones.                                                                                                                                     | `false`     |
 
-#
-
-#
-
-#

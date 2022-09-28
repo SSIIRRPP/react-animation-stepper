@@ -92,6 +92,7 @@ class AnimationStepper extends Component {
     }
     // children class components are mounted in father's constructor.
     this.children = this.generateChildren(this.props.components);
+    window.stepper_ = this;
   }
 
   setChildToElements = (id) => (childRef) => {
@@ -107,13 +108,13 @@ class AnimationStepper extends Component {
   generateChildren(comps) {
     // instantiates children without its own children to prevent
     // remounting childs in props.components update
-    return Object.entries(comps).map((entry, i) =>
-      createElement(AnimationWrapper, {
+    return Object.entries(comps).map((entry, i) => {
+      return createElement(AnimationWrapper, {
         setChildToElements: this.setChildToElements(entry[0]),
         id: entry[0],
         key: `AnimationWrapper-${Date.now()}-${i}`,
-      })
-    );
+      });
+    });
   }
 
   loadChildrensOwnChildren() {
