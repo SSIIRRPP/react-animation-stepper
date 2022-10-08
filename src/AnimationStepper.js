@@ -92,7 +92,6 @@ class AnimationStepper extends Component {
     }
     // children class components are mounted in father's constructor.
     this.children = this.generateChildren(this.props.components);
-    window.stepper_ = this;
   }
 
   setChildToElements = (id) => (childRef) => {
@@ -203,7 +202,14 @@ class AnimationStepper extends Component {
           _config = config[id];
         }
         // sends the animation to each element
-        return this.elements[id].setStep({ step, config: _config }, i);
+        const element = this.elements[id];
+        if (Boolean(element)) {
+          return element.setStep({ step, config: _config }, i);
+        } else {
+          throw new Error(
+            `No component found with id : "${id}" in "components" prop`
+          );
+        }
       })
     )
       .catch((e) => console.log(e))
